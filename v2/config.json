@@ -1,0 +1,8 @@
+{
+    "mqtt" : "aaaaaaaaaaaa",
+    "http" : "bbbbbbbbbbbb",
+    "imagelocation" :{
+        "rgb" :"ccccccccccccc",
+        "noir" :"ddddddddddddddd"
+    }
+}
