@@ -5,13 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/index.css">
+    
+    
     <title>Document</title>
 </head>
 <body id="container">
+    <% 
+    var message = mqttconnect() 
+    %>
+    <h1 >fff <%= message %></h1>
+    <button onclick = <% pubmqtt() %> >click</button>
+
     <iframe  src='http://127.0.0.1:8000/rgb' title='description' style='height:180px;width:320px'></iframe>
     <iframe  src='http://127.0.0.1:8000/noir' title='description' style='height:180px;width:320px'></iframe>
-    <h1>
-        hello
-    </h1> 
+    
+
+   
 </body>
 </html>

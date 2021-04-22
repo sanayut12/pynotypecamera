@@ -6,6 +6,7 @@ import paho.mqtt.client as mqtt
 import os
 from filename import randomfilename
 from readfilejson import readfilejson
+from time import sleep
 config = readfilejson()
 # Image frame sent to the Flask object
 global video_frame_rgb,video_frame_noir
@@ -42,7 +43,9 @@ def on_message(client, userdata,msg):
     if message == 'cap':
         cv2.imwrite("image/rgb/"+name,video_frame_rgb)
         cv2.imwrite("image/noir/"+name,video_frame_noir)
-
+        client.publish("button","0")
+        sleep(1)
+        client.publish("button","1")
     if message == 'stop':
         stop = True
  
@@ -68,19 +71,10 @@ def captureFramesRGB():
     video_capture = cv2.VideoCapture(GSTREAMER_PIPELINE_RGB, cv2.CAP_GSTREAMER)
     count = 0
     while True and video_capture.isOpened():
-        # print('-----------')
         return_key, frame = video_capture.read()
         video_frame_rgb = frame
-        # print(return_key)
-        # print(frame)
         if not return_key:
             break
-        # if capture:
-        #     print("capture Mode")
-        #     count_file = randomname()
-        #     cv2.imwrite("image/rgb/"+str(count_file)+".jpg",frame)
-        #     capture = False
-        # print(stop)
 
         if stop:
             break
@@ -96,20 +90,10 @@ def captureFramesNOIR():
     video_capture = cv2.VideoCapture(GSTREAMER_PIPELINE_NOIR, cv2.CAP_GSTREAMER)
     count = 0
     while True and video_capture.isOpened():
-        # print('-----------')
         return_key, frame = video_capture.read()
         video_frame_noir = frame
-        # print(return_key)
-        # print(frame)
         if not return_key:
             break
-        # if capture:
-        #     print("capture Mode")
-        #     count_file = randomname()
-        #     cv2.imwrite("image/rgb/"+str(count_file)+".jpg",frame)
-        #     capture = False
-        # print(stop)
-
         if stop:
             break
     print("status noir : ",stop)
