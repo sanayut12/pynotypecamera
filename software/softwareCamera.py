@@ -101,14 +101,14 @@ def captureFramesNOIR():
 
 def encodeFrameRGB():
     while True:        
-        return_key, encoded_image = cv2.imencode(".jpg", cv2.resize(video_frame_rgb,(320,180),interpolation = cv2.INTER_AREA))
+        return_key, encoded_image = cv2.imencode(".jpg", cv2.resize(video_frame_rgb,(512,288),interpolation = cv2.INTER_AREA))
         # Output image as a byte array
         yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + 
             bytearray(encoded_image) + b'\r\n')
 
 def encodeFrameNOIR():
     while True:        
-        return_key, encoded_image = cv2.imencode(".jpg", cv2.resize(video_frame_noir,(320,180),interpolation = cv2.INTER_AREA))
+        return_key, encoded_image = cv2.imencode(".jpg", cv2.resize(video_frame_noir,(512,288),interpolation = cv2.INTER_AREA))
         # Output image as a byte array
         yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + 
             bytearray(encoded_image) + b'\r\n')

@@ -9,7 +9,11 @@ app.set('view engine','ejs')
 
 
 app.get('/',(req,res)=>{
-	res.send("<h1>Hello ?</h1>")
+	function click(){
+		console.log('dsdsdsdsd')
+	}
+
+	res.send("<h1><button onclick='click()'>click</button></h1>")
 })
 
 

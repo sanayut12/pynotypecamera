@@ -1,0 +1,12 @@
+.Main-camera{
+    display: grid;
+    grid-column: auto;
+    height: 600px;
+}
+
+
+.Camera-display{
+    height: 288px;
+    width: 512px;
+    display: block;
+}

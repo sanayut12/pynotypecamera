@@ -1,0 +1,20 @@
+.Main-display{
+    display: flex;
+    flex-direction: row;
+    width: 1024px;
+    height: 600px;
+    background-color: blue;
+    align-items: center;
+}
+.Button-capture{
+    height: 200px;
+    width: 200px;
+}
+.Tabbar{
+    display: flex;
+    align-self: flex-end;
+    height: 600px;
+    width: 100px;
+    background-color: tomato;
+    margin-right: 50px;
+}
