@@ -1,0 +1,7 @@
+.Main-photo{
+    display: flex;
+    flex-direction: column;
+    height: 576px;
+    width: 1000px;
+    background-color: chartreuse;
+}
