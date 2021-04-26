@@ -1,5 +1,7 @@
 .Main-farm{
+    display: flex;
     height: 576px;
     width: 1000px;
     background-color: brown;
+    align-items: center;
 }

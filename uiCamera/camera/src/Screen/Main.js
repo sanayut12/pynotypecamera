@@ -14,7 +14,7 @@ import {
 class Main extends Component {
     render() {
         return (
-            <body className="Main-display" >
+            <body className="Main-display" href="/camera">
                 <div className="Tabbar">
                     <Button href="/camera">camera</Button>
                     <Button href="/farm">farm</Button>

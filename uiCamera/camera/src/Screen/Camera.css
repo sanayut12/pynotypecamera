@@ -2,6 +2,8 @@
     display: grid;
     grid-column: auto;
     height: 576px;
+    width: 1000px;
+    background-color: burlywood;
 }
 
 
