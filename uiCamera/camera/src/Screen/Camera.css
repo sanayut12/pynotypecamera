@@ -1,14 +1,23 @@
 .Main-camera{
-    display: grid;
-    grid-column: auto;
+    display: flex;
+    flex-direction: row;
     height: 576px;
     width: 1000px;
     background-color: burlywood;
 }
 
+.Camera-Display{
+    display: flex;
+    flex-direction: column;
+}
 
 .Camera-display{
     height: 288px;
     width: 512px;
     display: block;
+}
+
+.Control-display{
+    display: flex;
+    flex-direction: column;
 }

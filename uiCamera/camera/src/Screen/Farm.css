@@ -1,7 +1,84 @@
 .Main-farm{
     display: flex;
+    flex-direction: column;
     height: 576px;
     width: 1000px;
     background-color: brown;
+    /* align-items: center; */
+    padding-top: 20px;
+}
+.Create_farm_bar{
+    display: flex;
     align-items: center;
+    flex-direction:column;
+    height: 50px;
+    width: 100%;
+    /* background-color: lawngreen; */
+}
+.Create_Farm {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    /* background-color: lightcoral; */
+}
+
+.Farm-mange{
+    margin-left: 20px;
+}
+
+.Add_tree{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.Button_add_tree{
+    margin-left: 10px;
+    margin-right: 10px;
+    color:  darkblue;
+    background-color: darkgoldenrod;
+    border-radius: 50px;
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    height: 50px;
+    width: 50px;
+}
+.postion_self{
+    display: flex;
+    align-self: center;
+}
+.Screen_Tree_manage{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    background-color: lightslategray;
+}
+
+.Screen_Tree_manageLeft{
+    height: 100%;
+    width: 200px;
+    background-color: mediumblue;
+}
+.Screen_Tree_manageRight{
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(248, 234, 42, 0.322);
+    display: grid;
+    grid-template-columns: auto auto auto;
+    overflow: scroll;
+    /* grid-column: span; */
+}
+.Card_QR{
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    width: 200px;
+}
+.ImageQrcode{
+    height: 150px;
+    width: 150px;
 }

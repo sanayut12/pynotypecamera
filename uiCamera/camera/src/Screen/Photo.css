@@ -5,3 +5,33 @@
     width: 1000px;
     background-color: chartreuse;
 }
+.Farm-Select{
+    height: 50px;
+    width: 100%;
+    background-color: mediumorchid;
+}
+
+.Photo-muti{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    background-color: mediumslateblue;
+}
+.Photo-single{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 50%;
+    overflow: scroll;
+}
+/* .Photo-single1{
+    height: 100%;
+    width: 50%;
+    
+} */
+
+.image-Size{
+    height: 144px;
+    width:256px;
+}
