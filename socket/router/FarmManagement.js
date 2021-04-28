@@ -9,20 +9,7 @@ router.post('/createfarm',async (req,res)=>{
     console.log(body)
     var path_dir = "./data/"
 
-    fs.mkdirSync(path_dir+body.farmName, (err) => {
-        if (err) {
-            console.log("Directory is create fail.");
-            res.send({
-                nessage : false
-            })
-        }else{
-
-            
-            console.log("Directory is created.");
-            
-        }
-       
-    });
+    fs.mkdirSync(path_dir+body.farmName);
     fs.mkdirSync(path_dir+body.farmName+"/RGB",(err)=>{
 
     })
@@ -35,16 +22,14 @@ router.post('/createfarm',async (req,res)=>{
     
     fs.appendFile(path_dir+body.farmName+'/FarmInfo.csv', '', function (err) {
         if (err) throw err;
-        console.log('Saved!');
     });
-
     fs.appendFile(path_dir+body.farmName+'/CaptureInfo.csv', '', function (err) {
     if (err) throw err;
-    console.log('Saved!');
     });
 
+    var list = await fs.readdirSync('./data/');
     res.send({
-        nessage : true
+        list : list
     })
 
     
@@ -71,6 +56,8 @@ router.post('/addTree',async (req,res)=>{
         var image = await qrcodeimage(JSON.stringify(dataStructure))
         var pathName = "./data/"+body.farmName+"/QR/"+dataStructure.no+'.jpg' 
         fs.writeFileSync(pathName,image,{encoding: 'base64'})
+        var pathfarminfo = "./data/"+body.farmName+"/FarmInfo.csv" 
+        fs.appendFileSync(pathfarminfo,JSON.stringify(dataStructure)+"\n")
     }
 
    
@@ -88,6 +75,36 @@ router.get('/listfarm',async (req,res)=>{
     var list = await fs.readdirSync('./data/');
     res.send({
         list : list
+    })
+})
+
+router.post('/listQrcode',async (req,res)=>{
+    var body = {
+        farmName : req.body.farmName
+    }
+
+    var path_dir = "./data/"+body.farmName+"/QR"
+
+    var list = await fs.readdirSync(path_dir)
+    res.send({
+        list : list
+    })
+})
+
+router.post('/listImageCapture',async (req,res)=>{
+    var body = {
+        farmName : req.body.farmName
+    }
+    console.log(body)
+
+    var path_dirRGB = "./data/"+body.farmName+"/RGB"
+    var path_dirNOIR = "./data/"+body.farmName+"/NOIR"
+
+    var listRGB = await fs.readdirSync(path_dirRGB)
+    var listNOIR = await fs.readdirSync(path_dirNOIR)
+    res.send({
+        listRGB : listRGB,
+        listNOIR : listNOIR
     })
 })
 
