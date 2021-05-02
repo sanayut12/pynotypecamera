@@ -44,17 +44,20 @@ app.get('/imageNoir/:farmname/:no', (req, res) => {
 var mqtt = require('mqtt')
 var client  = mqtt.connect('http://127.0.0.1:1883')
 client.on('connect', function () {
-  client.subscribe('mqtt', function (err) {
-      if (!err) {
-      client.publish('mqtt', 'Hello mqtt')
-      }
+  client.subscribe('message', function (err) {
+      // if (!err) {
+      // client.publish('mqtt', 'Hello mqtt')
+      // }
   })
 })
 client.on('message', function (topic, message) {
   // message is Buffer
-  console.log(message.toString())
-  io.emit('mqtt',message.toString())
-  //   client.end()
+ 
+  let data = JSON.parse(message.toString())
+  console.log(data)
+  let key = data['key']
+  let message1 = data['message']
+  io.emit(key,message1)
 })
 //socket.io
 io.on('connection', (socket) => {

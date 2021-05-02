@@ -17,6 +17,19 @@ class Camera extends Component {
         const socket = socketIOClient('http://localhost:3001')
         socket.on("mqtt",message=>{
             console.log(message)
+            
+        })
+        socket.on("farmName",message=>{
+            console.log(message)
+            this.setState({
+                socketFarmName : message
+            })
+        })
+        socket.on("number",message=>{
+            console.log(message)
+            this.setState({
+                socketNo : message
+            })
         })
         this.setState({socket:socket})
     }
@@ -40,7 +53,7 @@ class Camera extends Component {
                     <h1>ชื่อฟาร์ม : {this.state.socketFarmName} </h1>
                     <h1>ต้นที่ : {this.state.socketNo} </h1>
                     <h1>ID : {this.state.socketId} </h1>
-                    <h1>Leaf Area  : {this.state.socketFarmName} </h1>
+                    <h1>Leaf Area  : {this.state.socketLeafarea} </h1>
                     <Button onClick={this.onCapture}>Capture</Button>
                 </Container>                
             </div>

@@ -99,11 +99,18 @@ def on_message(client, userdata,msg):
     # print(message)
     # print(type(message))
     if message == 'cap':
-        cv2.imwrite("image/rgb/"+name,video_frame_rgb)
-        cv2.imwrite("image/noir/"+name,video_frame_noir)
-        client.publish("button","0")
-        sleep(1)
-        client.publish("button","1")
+        if farm == "none":
+            cv2.imwrite("data/unknow/RGB/"+name,video_frame_rgb)
+            cv2.imwrite("data/unknow/NOIR/"+name,video_frame_noir)
+            client.publish("button","0")
+            sleep(1)
+            client.publish("button","1")
+        else:
+            cv2.imwrite("data/"+farm+"/RGB/"+name,video_frame_rgb)
+            cv2.imwrite("data/"+farm+"/NOIR/"+name,video_frame_noir)
+            client.publish("button","0")
+            sleep(1)
+            client.publish("button","1")
     if message == 'data':
         client.publish("data",farm +":"+str(number) +":"+ id)
     if message == 'stop':
