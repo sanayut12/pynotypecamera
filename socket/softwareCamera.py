@@ -177,6 +177,7 @@ def captureFramesNOIR():
     print("status noir : ",stop)
     video_capture.release()
 def OnCheckCactured():
+    print("on check capture starting")
     global OnCheckCapture
     OnCheckCapture = False
     host = config.mqtthost()
@@ -187,7 +188,7 @@ def OnCheckCactured():
     client.connect(host,port=port,keepalive=10000)
     resOncapture = {
         "key" : "oncapture",
-        "message" : "caturing"
+        "message" : "catured"
     }
     while True:
         sleep(0.5)
@@ -264,10 +265,10 @@ def ReadQRcode():
                 print('peroid')
         if stop:
             break
-        cv2.imshow("Image", image)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-    cv2.destroyAllWindows()
+        #cv2.imshow("Image", image)
+        #if cv2.waitKey(1) & 0xFF == ord('q'):
+       #     break
+    #cv2.destroyAllWindows()
 
 def encodeFrameRGB():
     while True:        
@@ -320,8 +321,6 @@ if __name__ == '__main__':
     process_thread_cameraC = threading.Thread(target=OnCheckCactured)
     process_thread_cameraC.daemon = True
     process_thread_cameraC.start()
-
-    OnCheckCactured()
     # captureFramesRGB()
     # # start the Flask Web Application
     # # While it can be run on any feasible IP, IP = 0.0.0.0 renders the web app on

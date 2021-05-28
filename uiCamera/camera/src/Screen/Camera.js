@@ -9,7 +9,9 @@ class Camera extends Component {
         socket : null,
         socketFarmName : "none",
         socketNo : "none",
-        socketLeafarea : "none"
+        socketLeafarea : "none",
+        socketNDVI : "none",
+        socketOncapture : "none"
     }
 
     componentDidMount(){
@@ -30,6 +32,13 @@ class Camera extends Component {
                 socketNo : message
             })
         })
+        socket.on("oncapture",message=>{
+            console.log(message)
+            this.setState({
+                socketOncapture : message
+            })
+        })
+
         this.setState({socket:socket})
     }
 
@@ -55,6 +64,7 @@ class Camera extends Component {
                     <h2>Leaf Area  : {this.state.socketLeafarea} </h2>
                     <h2>NDVI  : "none" </h2>
                     <Button className="ButtonCapture" onClick={this.onCapture}>Capture</Button>
+                    <h1>{this.state.socketOncapture}</h1>
                 </Container>                
             </div>
             
