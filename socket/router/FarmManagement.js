@@ -43,15 +43,12 @@ router.post('/addTree',async (req,res)=>{
     }    
     var dataStructure = {
         farmName : body.farmName,
-        no : 0,
-        id : ""
+        no : 0
     }
     var data = await fs.readdirSync('./data/'+body.farmName+'/QR');
     var number = data.length
 
     for (let i =0;i<body.amount;i++){
-        var id = await  getRndInteger()
-        dataStructure.id = id
         dataStructure.no = i+number+1
         var image = await qrcodeimage(JSON.stringify(dataStructure))
         var pathName = "./data/"+body.farmName+"/QR/"+dataStructure.no+'.jpg' 
@@ -108,9 +105,9 @@ router.post('/listImageCapture',async (req,res)=>{
     })
 })
 
-function getRndInteger() {
-    return (Math.floor(Math.random() * (9999999999 - 1000000000 + 1) ) + 1000000000).toString();
-}
+// function getRndInteger() {
+//     return (Math.floor(Math.random() * (9999999999 - 1000000000 + 1) ) + 1000000000).toString();
+// }
 
 async function qrcodeimage(dataStructure){
 

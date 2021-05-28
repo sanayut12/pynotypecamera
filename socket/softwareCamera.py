@@ -8,6 +8,7 @@ import json
 from filename import randomfilename
 from readfilejson import readfilejson
 from time import sleep
+import datetime
 config = readfilejson()
 # Image frame sent to the Flask object
 global video_frame_rgb,video_frame_noir
@@ -16,24 +17,24 @@ video_frame_noir = None
 # Use locks for thread-safe viewing of frames in multiple browsers
 global thread_lock 
 thread_lock = threading.Lock()
-
+global OnCheckCapture
+OnCheckCapture = False
 #use message capture from mqtt
 global capture ,stop
 capture = False
 stop = False
 
-global farm , number , id
+global farm , number
 farm =""
 number =0
-id = ""
 # GStreamer Pipeline to access the Raspberry Pi camera
 # GSTREAMER_PIPELINE_RGB = 'nvarguscamerasrc sensor_id=1 ! video/x-raw(memory:NVMM), width=1280, height=720, format=(string)NV12, framerate=21/1 ! nvvidconv flip-method=0 ! video/x-raw, width=1280, height=720, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink wait-on-eos=false max-buffers=1 drop=True'
 # GSTREAMER_PIPELINE_NOIR = 'nvarguscamerasrc sensor_id=0 ! video/x-raw(memory:NVMM), width=1280, height=720, format=(string)NV12, framerate=21/1 ! nvvidconv flip-method=0 ! video/x-raw, width=1280, height=720, format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink wait-on-eos=false max-buffers=1 drop=True'
 def gstreamer_pipelineRGB(
-    capture_width=3280,
-    capture_height=2464,
-    display_width=820,
-    display_height=616,
+    capture_width=1280,
+    capture_height=720,
+    display_width=1280,
+    display_height=720,
     framerate=21,
     flip_method=0,
 ):
@@ -56,10 +57,10 @@ def gstreamer_pipelineRGB(
         )
     )
 def gstreamer_pipelineNOIR(
-    capture_width=3280,
-    capture_height=2464,
-    display_width=820,
-    display_height=616,
+    capture_width=1280,
+    capture_height=720,
+    display_width=1280,
+    display_height=720,
     framerate=21,
     flip_method=0,
 ):
@@ -88,31 +89,41 @@ def on_connect(self, client, userdata, rc):
     self.subscribe("capture")
 
 def on_message(client, userdata,msg):
-    global farm , number , id
+    global farm , number
     global video_frame_rgb,video_frame_noir
-    name = randomfilename().random()
+    global OnCheckCapture
+    OnCheckCapture = False
+
+    # name = randomfilename().random()
+    dt = datetime.datetime.now()
+	 
+    name = str(dt.year) + "-"+str(dt.month)+"-"+str(dt.day)+"-"+str(dt.hour)+"-"+str(dt.minute)+"-"+str(dt.second)+"-"+str(number)+".jpg"
+
     global capture ,stop
     capture = False
     stop = False
 
     message = msg.payload.decode("utf-8", "strict")  # str
-    # print(message)
+    print(message)
     # print(type(message))
     if message == 'cap':
+        resOncapture = {
+            "key" : "oncapture",
+            "message" : "caturing"
+        }
+
         if farm == "none":
             cv2.imwrite("data/unknow/RGB/"+name,video_frame_rgb)
             cv2.imwrite("data/unknow/NOIR/"+name,video_frame_noir)
-            client.publish("button","0")
-            sleep(1)
-            client.publish("button","1")
+            OnCheckCapture = True
+            client.publish("message",json.dumps(resOncapture))
         else:
             cv2.imwrite("data/"+farm+"/RGB/"+name,video_frame_rgb)
             cv2.imwrite("data/"+farm+"/NOIR/"+name,video_frame_noir)
-            client.publish("button","0")
-            sleep(1)
-            client.publish("button","1")
+            OnCheckCapture = True
+            client.publish("message",json.dumps(resOncapture))
     if message == 'data':
-        client.publish("data",farm +":"+str(number) +":"+ id)
+        client.publish("data",farm +":"+str(number))
     if message == 'stop':
         stop = True
  
@@ -165,11 +176,31 @@ def captureFramesNOIR():
             break
     print("status noir : ",stop)
     video_capture.release()
+def OnCheckCactured():
+    global OnCheckCapture
+    OnCheckCapture = False
+    host = config.mqtthost()
+    port = config.mqttport()
+    print(host)
+    print(port)
+    client = mqtt.Client()
+    client.connect(host,port=port,keepalive=10000)
+    resOncapture = {
+        "key" : "oncapture",
+        "message" : "caturing"
+    }
+    while True:
+        sleep(0.5)
+        if OnCheckCapture:
+            sleep(2)
+            client.publish("message",json.dumps(resOncapture))
+            OnCheckCapture = False
+
 
 def ReadQRcode():
-    sleep(10)
+    sleep(6)
     global video_frame_rgb 
-    global farm , number , id
+    global farm , number
     # farm =""
     # number ="" 
     # id = ""
@@ -200,10 +231,8 @@ def ReadQRcode():
                 # print(data)   
                 farm = data['farmName']
                 number = data['no']
-                id = data['id']
                 print(farm)
                 print(number)
-                print(id)
                 count = 0
                 farmnamejson = {
                     "key" : "farmName",
@@ -222,7 +251,6 @@ def ReadQRcode():
                 count = 0
                 farm = "none"
                 number = 0
-                id = "none"
                 farmnamejson = {
                     "key" : "farmName",
                     "message" : farm
@@ -288,9 +316,15 @@ if __name__ == '__main__':
     process_thread_cameraQR = threading.Thread(target=ReadQRcode)
     process_thread_cameraQR.daemon = True
     process_thread_cameraQR.start()
+
+    process_thread_cameraC = threading.Thread(target=OnCheckCactured)
+    process_thread_cameraC.daemon = True
+    process_thread_cameraC.start()
+
+    OnCheckCactured()
     # captureFramesRGB()
     # # start the Flask Web Application
     # # While it can be run on any feasible IP, IP = 0.0.0.0 renders the web app on
     # # the host machine's localhost and is discoverable by other machines on the same network 
-    app.run(config.httphost(), port=config.httpport())
-    # mqtt_client()
+    app.run( config.httphost(), port=config.httpport())
+    # mqtt_client() config.httphost()
