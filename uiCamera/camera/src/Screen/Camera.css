@@ -3,7 +3,7 @@
     flex-direction: row;
     height: 576px;
     width: 1000px;
-    background-color: burlywood;
+    background-color: #ffcb34;
 }
 
 .Camera-Display{
@@ -20,4 +20,16 @@
 .Control-display{
     display: flex;
     flex-direction: column;
+}
+
+.ButtonCapture{
+    margin-left: 10px;
+    margin-top: 30px;
+    border-radius: 30px;
+    width: 179px;
+    height: 55px;
+    background-color: #ff9f1f;
+}
+.Detail{
+    margin-left: 30px;
 }

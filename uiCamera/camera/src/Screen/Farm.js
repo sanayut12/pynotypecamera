@@ -136,7 +136,9 @@ class Farm extends Component {
         return (
             <div className="Main-farm">
                 <Container className="Create_farm_bar">
+                    
                     <Form className="Create_Farm"> 
+                        <h2 className="head">เพิ่ม/แก้ ข้อมูลฟาร์ม</h2>
                         <FormGroup>
                             <Label >สร้างฟาร์ม : </Label>
                             <Input value={this.state.farmNAmeInput} onChange={this.onFarmname}  placeholder="enter farm name"/>
@@ -163,8 +165,8 @@ class Farm extends Component {
                                 </Button>
                             </FormGroup>
                             <FormGroup>
-                                <Button onClick={this.onAddTreeAPI}>
-                                    <h1>เพิ่มต้นไม้</h1>
+                                <Button className="buttonAddtree" onClick={this.onAddTreeAPI}>
+                                    <h2>เพิ่มต้นไม้</h2>
                                 </Button>
 
                                 <h4>มีต้นไม้ในฟาร์ม {Imagelist.length} ต้น</h4>

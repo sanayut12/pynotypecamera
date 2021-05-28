@@ -3,9 +3,13 @@
     flex-direction: column;
     height: 576px;
     width: 1000px;
-    background-color: brown;
+    background-color: #ff9f1f;
     /* align-items: center; */
     padding-top: 20px;
+}
+.head{
+    margin-top: -20px;
+    margin-bottom: -10px;
 }
 .Create_farm_bar{
     display: flex;
@@ -53,13 +57,13 @@
     flex-direction: row;
     height: 100%;
     width: 100%;
-    background-color: lightslategray;
+    background-color: white;
 }
 
 .Screen_Tree_manageLeft{
     height: 100%;
     width: 200px;
-    background-color: mediumblue;
+    background-color: #ffcb32;
 }
 .Screen_Tree_manageRight{
     align-items: center;
@@ -81,4 +85,10 @@
 .ImageQrcode{
     height: 150px;
     width: 150px;
+}
+.buttonAddtree{
+    height: 55px;
+    width: 179px;
+    border-radius: 30px;
+    background-color: #ff9f1f;
 }

@@ -9,7 +9,6 @@ class Camera extends Component {
         socket : null,
         socketFarmName : "none",
         socketNo : "none",
-        socketId : "none",
         socketLeafarea : "none"
     }
 
@@ -49,12 +48,13 @@ class Camera extends Component {
                     <img className ="Camera-display" src="http://localhost:8000/rgb" />
                     <img className ="Camera-display" src="http://localhost:8000/noir" />
                 </Container>
-                <Container>
-                    <h1>ชื่อฟาร์ม : {this.state.socketFarmName} </h1>
-                    <h1>ต้นที่ : {this.state.socketNo} </h1>
-                    <h1>ID : {this.state.socketId} </h1>
-                    <h1>Leaf Area  : {this.state.socketLeafarea} </h1>
-                    <Button onClick={this.onCapture}>Capture</Button>
+                <Container className="Detail">
+                    <h1>การถ่ายรูป</h1>
+                    <h2>ชื่อฟาร์ม : {this.state.socketFarmName} </h2>
+                    <h2>ต้นที่ : {this.state.socketNo} </h2>
+                    <h2>Leaf Area  : {this.state.socketLeafarea} </h2>
+                    <h2>NDVI  : "none" </h2>
+                    <Button className="ButtonCapture" onClick={this.onCapture}>Capture</Button>
                 </Container>                
             </div>
             

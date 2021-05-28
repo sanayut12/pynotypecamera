@@ -3,12 +3,15 @@
     flex-direction: column;
     height: 576px;
     width: 1000px;
-    background-color: chartreuse;
+    background-color: #ffcb34;
 }
 .Farm-Select{
-    height: 50px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100px;
     width: 100%;
-    background-color: mediumorchid;
+    background-color: #ff9f1f;
 }
 
 .Photo-muti{
@@ -16,7 +19,7 @@
     flex-direction: row;
     height: 100%;
     width: 100%;
-    background-color: mediumslateblue;
+    background-color: #ffcb34;
 }
 .Photo-single{
     display: flex;
@@ -34,4 +37,8 @@
 .image-Size{
     height: 144px;
     width:256px;
+}
+
+.head{
+    margin-top: 2px;
 }

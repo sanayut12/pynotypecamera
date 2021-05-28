@@ -86,6 +86,7 @@ class Photo extends Component {
             <div className="Main-photo">
                 <Container>
                     <FormGroup className="Farm-Select">
+                        <h1 className="head">เรียกดูข้อมูลการถ่ายภาพ</h1>
                         <Label for="exampleSelect">เลือกฟาร์ม</Label>
                         <Input type="select" onChange={this.onSelectDropDown} value={this.state.farm_current}>
                         {farm_list_dropdowm}

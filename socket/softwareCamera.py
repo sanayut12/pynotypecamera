@@ -167,6 +167,7 @@ def captureFramesNOIR():
     video_capture.release()
 
 def ReadQRcode():
+    sleep(10)
     global video_frame_rgb 
     global farm , number , id
     # farm =""
@@ -179,7 +180,7 @@ def ReadQRcode():
     client = mqtt.Client()
     client.connect(host,port=port,keepalive=10000)
 
-    sleep(2)
+    
     qrCodeDetector = cv2.QRCodeDetector()
     count = 0
     while (True):
